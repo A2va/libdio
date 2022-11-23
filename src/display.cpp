@@ -7,10 +7,15 @@
 #include <stdlib.h>
 
 #ifdef _WIN32
-#include <windows.h>s
+#include <windows.h>
 #endif
 
 #include "../include/display.h"
+
+std::string operator "" _red(const char* s, size_t len)
+{
+   return Display::setTextColor(std::string(s,len), Display::Colors::RED);
+}
 
 void Display::setTerminalUtf8() {
 #ifdef _WIN32
