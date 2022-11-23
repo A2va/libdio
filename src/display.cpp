@@ -4,15 +4,10 @@
 
 #include <iostream>
 #include <utility>
-
-#ifdef _WIN32
-
-#include <windows.h>
-
-#elif __unix__
-
 #include <stdlib.h>
 
+#ifdef _WIN32
+#include <windows.h>s
 #endif
 
 #include "../include/display.h"
