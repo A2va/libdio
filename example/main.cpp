@@ -5,6 +5,10 @@
 using namespace std;
 
 int main() {
+
+    Display::init();
+    std::cout << "Hello"_red << "World"_blue << std::endl;
+
     Display display(Display::Colors::PINK);
 
     Display::showText("Test", Display::Colors::GREEN);

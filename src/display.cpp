@@ -4,20 +4,16 @@
 
 #include <iostream>
 #include <utility>
-
-#ifdef _WIN32
-
-#include <windows.h>
-
-#elif __unix__
-
 #include <stdlib.h>
 
+#ifdef _WIN32
+#include <windows.h>
 #endif
 
 #include "../include/display.h"
 
-void Display::setTerminalUtf8() {
+
+void Display::init() {
 #ifdef _WIN32
     system(("chcp " + std::to_string(CP_UTF8))
                    .c_str());// Set terminal to utf-8 with support of colors
@@ -25,7 +21,7 @@ void Display::setTerminalUtf8() {
 }
 
 Display::Display(Colors defaultTextColor) {
-    Display::setTerminalUtf8();
+    Display::init();
     this->setTextColor(defaultTextColor);
 }
 
@@ -48,7 +44,7 @@ void Display::show(std::string text) {
 }
 
 void Display::showText(std::string text, Display::Colors color) {
-    Display::setTerminalUtf8();
+    Display::init();
     std::cout << Display::setTextColor(std::move(text), color) << std::endl;
 }
 
@@ -145,4 +141,28 @@ void Display::DisplayGrid(const std::vector<std::vector<std::string>> &grid,
 std::string Display::setTextColor(std::string text, Display::Colors color) {
     text = "\x1b[38;5;" + std::to_string(color) + "m" + text + "\x1b[0m";
     return text;
+}
+
+std::string operator "" _white(const char* s, size_t len) {
+   return Display::setTextColor(std::string(s,len), Display::Colors::WHITE);
+}
+
+std::string operator "" _pink(const char* s, size_t len) {
+   return Display::setTextColor(std::string(s,len), Display::Colors::PINK);
+}
+
+std::string operator "" _red(const char* s, size_t len) {
+   return Display::setTextColor(std::string(s,len), Display::Colors::RED);
+}
+
+std::string operator "" _green(const char* s, size_t len) {
+   return Display::setTextColor(std::string(s,len), Display::Colors::GREEN);
+}
+
+std::string operator "" _blue(const char* s, size_t len) {
+   return Display::setTextColor(std::string(s,len), Display::Colors::BLUE);
+}
+
+std::string operator "" _black(const char* s, size_t len) {
+   return Display::setTextColor(std::string(s,len), Display::Colors::BLACK);
 }

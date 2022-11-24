@@ -8,6 +8,14 @@
 #include <string>
 #include <vector>
 
+// Custom literals
+std::string operator "" _white(const char* s, size_t len);
+std::string operator "" _pink(const char* s, size_t len);
+std::string operator "" _red(const char* s, size_t len);
+std::string operator "" _green(const char* s, size_t len);
+std::string operator "" _blue(const char* s, size_t len);
+std::string operator "" _black(const char* s, size_t len);
+
 class Display {
 
     const std::string TOP_LEFT_PIPE = "╔";
@@ -28,8 +36,6 @@ private:
 
     std::string drawBottomFrame(size_t sizeHorizontal);
 
-    static void setTerminalUtf8();
-
 public:
     enum Colors {
         WHITE = 15,
@@ -41,6 +47,8 @@ public:
     };
 
     explicit Display(Colors defaultTextColor = Colors::WHITE);
+
+    static void init();
 
     void setTextColor(Colors color);
 
